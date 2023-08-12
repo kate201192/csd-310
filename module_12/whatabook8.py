@@ -2,6 +2,8 @@ import sys
 import mysql.connector
 from mysql.connector import errorcode
 
+
+#connecting to database
 config = {
     "user": "whatabook_user",
     "password": "MySQL8IsGreat!",
@@ -9,6 +11,7 @@ config = {
     "database": "whatabook",
 }
 
+#main menu for user 
 
 def show_menu():
     print("---Main Menu---")
@@ -27,6 +30,8 @@ def show_menu():
 
         sys.exit(0)
 
+#select query to view all books 
+
 def show_all_books(_cursor):
     _cursor.execute("select book_id, book_name, author, details from book")
 
@@ -35,8 +40,10 @@ def show_all_books(_cursor):
     print("Book Listings")
 
     for book in books:
-        print("Book Name: {}\n Author{}\n Details{}\n" .format(book[0],book[1],book[2]))
-        
+        print("Book Name: {}\n Author{}\n Details{}\n".format(book[0],book[1],book[2]))
+
+    sys.exit(0)
+#select query to view location         
 def show_locations(_cursor):
     _cursor.execute("SELECT store_id, locale from store")
 
@@ -46,7 +53,9 @@ def show_locations(_cursor):
 
     for location in locations:
         print("  Locale: {}\n".format(location[1]))
+    sys.exit(0)
 
+#validate user 
 def show_user():
 
     try:
@@ -62,6 +71,8 @@ def show_user():
         print("invalid option, goodbye")
 
     sys.exit(0)
+
+#account menu
 
 def show_account():
 
@@ -79,6 +90,8 @@ def show_account():
         print("invalid option, goodbye")
 
     sys.exit(0)
+
+#inner join to query wishlist items 
 
 def show_wishlist(_cursor, User_id):
 
@@ -115,7 +128,8 @@ def show_wishlist(_cursor, User_id):
         def add_to_wishlist(_cursor, User_id, Book_id):
 
             _cursor.execute("INSERT INTO wishlist(user_id, book_id) VALUES({}, {})".format(User_id, Book_id))
-        
+            
+        sys.exit(0)
 try:
 
         db = mysql.connector.connect(**config)
